@@ -1,3 +1,4 @@
+<!-- index.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,22 +6,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>AniPedia</title>
   <link rel="stylesheet" href="./homePage.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+  <link rel="icon" href="./favicon.ico" />
 </head>
-
 <body>
-
-
   <video class="video-bg" autoplay muted loop>
     <source src="./luffys-resolve-under-the-night-sky.1920x1080.mp4" type="video/mp4">
-    <!-- fallback -->
     Your browser does not support the video tag.
   </video>
-  
-  <!-- Background container -->
-  <!-- <div class="background"></div>
-  <div class="circle-container" id="circle-container"></div> -->
 
-  <!-- Your main content starts here -->
   <div class="full-body">
     <div class="otaku-header-div">
       <h1 class="otaku-header-english">OTAKU PEDIA</h1>
@@ -32,28 +27,27 @@
         <h1>Welcome on AniPedia</h1>
       </div>
       <div class="search-bar">
-        <input type="text" placeholder="search anime" />
-        <button>🔍</button>
+        <input type="text" placeholder="Search anime..." id="inputText"/>
+        <button onclick="getAnimeData()" class="srchBtn">🔍</button>
       </div>
+
+      <div id="anime-data"></div>
 
       <div class="paragraph1">
         <h4>
-          Did you know anime-related topics are searched over<strong> 1 billion times monthly</strong> on Google? Anime has exploded in global popularity... 
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi, obcaecati.
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam a temporibus tempore est magni ut odit optio perspiciatis, placeat labore laborum quia! Id totam exercitationem neque. Tempora eaque nemo illum!
-          Nisi quos rerum qui vero ex. Ea adipisci possimus nostrum quos suscipit et iste sed laborum reprehenderit tempore, dolor exercitationem alias rem doloremque nesciunt voluptatibus debitis. Ipsum doloremque iusto dicta.
-          <br><br>
+          Did you know anime-related topics are searched over <strong>1 billion times monthly</strong> on Google?
+          Anime has exploded in global popularity. Dive into its world with AniPedia.
         </h4>
       </div>
     </div>
 
     <footer class="footer">
       <div class="contents">
-        <h3>Anipedia</h3>
+        <h3>AniPedia</h3>
         <p>Your daily dose of anime knowledge</p>
       </div>
       <div class="socials">
-        <a href="https://github.com/Priyanshu9062" target="_blank">Git</a>
+        <a href="https://github.com/Priyanshu9062" target="_blank">GitHub</a>
         <a href="https://www.instagram.com/ig_priyanshu9/" target="_blank">Instagram</a>
         <a href="https://x.com/PriyanshuB96869" target="_blank">X</a>
       </div>
@@ -63,23 +57,6 @@
     </footer>
   </div>
 
-  <!-- Footer scroll visibility -->
-  <script>
-window.addEventListener("scroll", toggleFooter);
-window.addEventListener("load", toggleFooter);
-
-function toggleFooter() {
-  const footer = document.querySelector(".footer");
-  const isScrollable = document.body.scrollHeight >= window.innerHeight;
-
-  if (window.scrollY > 80 || !isScrollable) {
-    footer.classList.add("visible");
-  } else {
-    footer.classList.remove("visible");
-  }
-}
-
-
-  </script>
+  <script src="./homePage.js"></script>
 </body>
 </html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AniPedia – Search Results</title>
+  <link rel="stylesheet" href="animePage.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+</head>
+<body>
+  <h2>Search Results</h2>
+  <div id="anime-data"></div>
+
+  <script>
+    const malId = localStorage.getItem("mainAnimeId");
+    const container = document.getElementById("anime-data");
+
+    console.log("Retrieved malId:", malId);
+
+    if (!malId) {
+      container.innerHTML = "<p>No anime selected.</p>";
+      throw new Error("Missing mal_id");
+    }
+
+    fetch(`https://api.jikan.moe/v4/anime/${malId}/relations`)
+      .then(res => res.json())
+      .then(async data => {
+        const allEntries = [];
+        data.data.forEach(group => {
+          group.entry.forEach(anime => {
+            allEntries.push(anime.mal_id);
+          });
+        });
+
+        if (allEntries.length === 0) {
+          const fallback = await fetch(`https://api.jikan.moe/v4/anime/${malId}`);
+          const fallbackData = await fallback.json();
+          allEntries.push(fallbackData.data.mal_id);
+        }
+
+        Promise.all(
+          allEntries.map(id =>
+            fetch(`https://api.jikan.moe/v4/anime/${id}`)
+              .then(res => res.json())
+              .then(animeData => {
+                const anime = animeData.data;
+                if (!anime) return;
+
+                const card = document.createElement("div");
+                card.className = "anime-card";
+                card.innerHTML = `
+                  <img src="${anime.images?.jpg?.image_url || 'fallback.jpg'}" width="150" loading="lazy" />
+                  <p><b>${anime.title || 'Title N/A'}</b></p>
+                  <p><b>Type:</b> ${anime.type || '-'} | <b>Episodes:</b> ${anime.episodes || '-'}</p>
+                  <p><b>Status:</b> ${anime.status || '-'}</p>
+                  <p>${anime.synopsis ? anime.synopsis.slice(0, 150) + '...' : 'No synopsis available.'}</p>
+                  <a href="https://myanimelist.net/anime/${anime.mal_id}" target="_blank">📺 View on MAL</a>
+                `;
+                container.appendChild(card);
+              })
+              .catch(err => console.error("Error fetching anime by ID:", id, err))
+          )
+        );
+      })
+      .catch(err => {
+        console.error("Failed to fetch relations:", err);
+        container.innerHTML = `<p>Failed to load related anime. <br> ${err.message}</p>`;
+      });
+  </script>
+</body>
+</html>

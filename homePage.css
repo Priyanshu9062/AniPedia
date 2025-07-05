@@ -149,6 +149,13 @@ body::after {
   left: 5%;              /* Shift from left edge */
    /* Vertically center */
   z-index: 3;
+
+  margin-top: 50px; /* ⬅️ Increase this value to move it lower */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+
 }
 
 .search-bar input {
@@ -160,6 +167,8 @@ body::after {
   padding-left: 15px;
   background-color: rgba(255, 255, 255, 0.9);
   color: #000;
+
+
 }
 
 .search-bar button {
@@ -176,6 +185,23 @@ body::after {
 .search-bar button:hover {
   background-color: #a29bfe;
 }
+
+.anime-card {
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin: 10px;
+  border-radius: 8px;
+  background: #f9f9f9;
+  max-width: 600px;
+}
+
+.anime-card img {
+  float: left;
+  margin-right: 10px;
+  border-radius: 5px;
+}
+
+
 
 /** PARAGRAPH **/
 .paragraph1 {
